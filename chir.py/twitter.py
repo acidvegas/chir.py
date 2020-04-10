@@ -40,12 +40,12 @@ class boost_loop(threading.Thread):
         while True:
             try:
                 if 'boost_tweet' in locals(): api.destroy_status(boost_tweet.id)
-                boost_tweet = api.update_status('Support our Twitter! #' + ' #'.join(config.boost))
+                boost_tweet = api.update_status('Support our Twitter! #' + ' #'.join(config.boost_keywords))
                 debug.alert('Re-posted boost tweet.')
             except tweepy.TweepError as ex:
                 debug.error('Error occured in the boost loop', ex)
             finally:
-                random.shuffle(config.boost)
+                random.shuffle(config.boost_keywords)
                 time.sleep(60*5)
 
 class favorite_loop(threading.Thread):
